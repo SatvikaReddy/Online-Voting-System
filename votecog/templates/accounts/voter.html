@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+        <h1>This is voter profile page!</h1>
+        <h2>{{ user.username }}</h2>
+        <p>{{ user.email }}</p>
+        {% if user.is_voter %}
+            <p>User is a voter? {{user.is_voter}}</p>
+        {% else %}
+            <p>User is a voter? {{user.is_voter}}</p>
+        {% endif %}
+    {% endif %}
+{% endblock content %}
