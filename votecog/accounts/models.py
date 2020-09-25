@@ -2,6 +2,24 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import User
 # Create your models here.
+from django.urls import reverse
+
+YEAR_CHOICES = (
+    ('1st', '1ST'),
+    ('2nd','2ND'),
+    ('3rd','3RD'),
+    ('4th','4TH')
+)
+
+
+class Person(models.Model):
+    name = models.CharField(max_length=130)
+    email = models.EmailField(blank=True)
+    year = models.CharField(max_length=6, choices=YEAR_CHOICES, default='1st')
+    bio = models.TextField(blank=True)
+
+    def get_absolute_url(self):
+        return reverse('success')
 
 class MyAccountManager(BaseUserManager):
     def create_user(self, email, username ,password=None):
@@ -26,6 +44,7 @@ class MyAccountManager(BaseUserManager):
             username=username,
         )
 
+    
         user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
