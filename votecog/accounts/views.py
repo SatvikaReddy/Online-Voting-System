@@ -9,14 +9,29 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 
 
-class PersonCreateView(CreateView):
-    model = Person
-    form_class = MyModelForm
-    # fields = '__all__'
-    success_url=reverse_lazy('accounts:success')
+# class PersonCreateView(CreateView):
+#     model = Person
+#     form_class = MyModelForm
+#     # fields = '__all__'
+#     success_url=reverse_lazy('accounts:success')
 
 def success(request):
     return render(request,'accounts/success.html',{})
+
+
+def cform(request):
+    if request.method == "POST":
+       form = MyModelForm(request.POST)
+       if form.is_valid():
+           post = form.save(commit=False)
+           post.published_date = timezone.now()
+           if request.user.is_authenticated:
+                post.user=request.user
+           post.save()
+           return redirect('accounts:success')
+    else:
+        form = MyModelForm()
+    return render(request, 'accounts/person_form.html', {'form': form})
 
 def home(request):
     return render(request, template_name='base.html')
@@ -48,9 +63,9 @@ def cstatus(request,pk):
     status =request.GET.get('status')
     form.status= status
     form.published_date= timezone.now()
+    if (form.status == 'accepted'):
+        form.user.is_voter = False
     form.save()
-    # if (form.status == 'accepted'):
-    #     request.user.is_voter = False
     return redirect('accounts:dashboard')
 
 def sdetails(request, pk):
