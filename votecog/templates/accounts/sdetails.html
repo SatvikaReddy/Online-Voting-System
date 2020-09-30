@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Student-form{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<div class="container"> 
+<div class="col-sm-6">
+    <div class="span6" style="padding-right:20px; border-right: 3px solid #ccc;height:1000px">
+      <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Reason</th>
+        <th>Date</th>
+
+      </tr>
+    </thead>
+    <tbody>
+    	{% for i in res %}
+      <tr>
+        <td>{{i.bio}}</td>
+        <td>{{i.date}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  <button type="button" class="btn"><a href="cstatus?status=rejected">REJECT</a></button>
+  <button type="button" class="btn"><a href="cstatus?status=accepted">ACCEPT</a></button>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

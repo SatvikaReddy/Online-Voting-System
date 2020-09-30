@@ -1,9 +1,15 @@
 {% extends 'blog/base.html' %}
 
 {% block content%}
+
+{% if user.is_authenticated and post.author == user.username %}
 	<h1>Your post</h1>
 	<form method="POST" class="post-form">{% csrf_token %}
 		{{ form.as_p }}
 		<button type="submit" class="save btn btn-default">Save</button>
 	</form>
+
+	{%else%}
+	<h2> You cant access this!</h2>
+	{%endif%}
 {% endblock %}

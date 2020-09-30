@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Applications-List{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<div class="container">
+    <h2 style="color: rgb(14, 13, 13)"><u>Candidate Requests</u></h2>         
+    <table class="table table-hover">
+      <thead>
+        {% if values1 %}
+        <tr>
+        <th style="color: brown">Roll Number</th>
+          <th style="color: brown">Name</th>
+          <th style="color: brown">Email</th>
+          <th style="color: brown">Year</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in values1 %}
+        <tr>
+            <td><a href="#" id="number" name="number">Roll No</a></td>
+          <td><a href="#" id="name" name="name">{{i.author}}</a></td>
+          <td><a href="#" id="email" name="email">{{i.email}}</a></td>
+          <td><a href="#" id="year" name="year">{{i.year}}</a></td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <h3 style="color: rgb(28, 28, 160)">No Pending Candidate Form Requests</h3>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+
+{% endblock %}
