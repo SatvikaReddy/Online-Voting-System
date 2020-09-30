@@ -6,9 +6,9 @@
 
 {% block content %}
 
-
+{% if user.is_admin %}
 <div class="container"> 
-<div class="col-sm-6">
+<div class="col-sm-12">
     <div class="span6" style="padding-right:20px; border-right: 3px solid #ccc;height:1000px">
       <table class="table table-hover">
     <thead>
@@ -19,19 +19,23 @@
       </tr>
     </thead>
     <tbody>
-    	{% for i in res %}
       <tr>
-        <td>{{i.bio}}</td>
-        <td>{{i.date}}</td>
+        <td>{{res.bio}}</td>
+        <td>{{res.published_date}}</td>
         </tr>
-        {% endfor %}
     </tbody>
   </table>
-  <button type="button" class="btn"><a href="cstatus?status=rejected">REJECT</a></button>
-  <button type="button" class="btn"><a href="cstatus?status=accepted">ACCEPT</a></button>
+  <a href="cstatus?status=rejected"><button type="button" class="btn btn-danger" style="text-decoration: none !important; color: aliceblue;">REJECT</button></a>
+  <a href="cstatus?status=accepted"><button type="button" class="btn btn-success" style="text-decoration: none !important; color: aliceblue;">ACCEPT</button></a>
     </div>
   </div>
 </div>
+
+{% else %}
+
+  <h2>You cant access this page!</h2>
+
+  {% endif %}
 
 
 {% endblock %}

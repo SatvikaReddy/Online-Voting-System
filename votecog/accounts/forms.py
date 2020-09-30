@@ -15,7 +15,8 @@ class UserRegisterForm(UserCreationForm):
 class MyModelForm(forms.ModelForm):
     class Meta:
         model = Person
-        fields = '__all__'
+        fields = ('name','branch','year','bio',)
         labels  = {
         "bio":"Why do you want to apply?",
+        "name":"Full Name"
         }

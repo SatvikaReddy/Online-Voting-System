@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from .views import home
 from .views import PersonCreateView
+from django.conf.urls import url
 
 app_name = 'accounts'
 urlpatterns = [
@@ -9,4 +10,7 @@ urlpatterns = [
    path('profile/', views.profile, name='profile'),
    path('cform/', PersonCreateView.as_view(), name='person_form'),
     path('success/', views.success, name='success'),
+    path('dash/', views.dashboard, name='dashboard'),
+    url(r'^dash/(?P<pk>[0-9]+)/cstatus/$', views.cstatus, name='cstatus'),
+    url(r'^dash/(?P<pk>[0-9]+)/$', views.sdetails, name='sdetails'),
 ]

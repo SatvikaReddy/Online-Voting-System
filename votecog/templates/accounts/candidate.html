@@ -10,5 +10,6 @@
     {% else %}
         <p>User is a voter? {{user.is_voter}}</p>
     {% endif %}
+    <a href="{% url 'blog:post_list' %}">Go to feed!</a>
 {% endif %}
 {% endblock content %}

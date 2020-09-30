@@ -6,8 +6,8 @@ from .models import Person
 
 
 class CandidateForm(admin.ModelAdmin):
-    list_display = ('name','email','year','bio')
-    search_fields = ('email', 'name')
+    list_display = ('name','branch','year','bio')
+    search_fields = ('branch', 'name')
 
     filter_horizontal = ()
     list_filter = ()

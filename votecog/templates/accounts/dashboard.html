@@ -6,26 +6,27 @@
 
 {% block content %}
 
-
+{% if user.is_admin %}
 <div class="container">
-    <h2 style="color: rgb(14, 13, 13)"><u>Candidate Requests</u></h2>         
+    <h2 style="color: rgb(11, 11, 12); ">Candidate Requests</h2>   
+    <br>      
     <table class="table table-hover">
       <thead>
-        {% if values1 %}
+        {% if values1.status == "pending" %}
         <tr>
-        <th style="color: brown">Roll Number</th>
-          <th style="color: brown">Name</th>
-          <th style="color: brown">Email</th>
-          <th style="color: brown">Year</th>
+        <th style="color: black">Roll Number</th>
+          <th style="color: black">Name</th>
+          <th style="color: black">Branch</th>
+          <th style="color: rgb(12, 12, 12)">Year</th>
         </tr>
       </thead>
       <tbody>
         {% for i in values1 %}
         <tr>
-            <td><a href="#" id="number" name="number">Roll No</a></td>
-          <td><a href="#" id="name" name="name">{{i.author}}</a></td>
-          <td><a href="#" id="email" name="email">{{i.email}}</a></td>
-          <td><a href="#" id="year" name="year">{{i.year}}</a></td>
+            <td style="text-decoration: none !important;"><a href="{{i.pk}}" id="number" name="number">Roll No</a></td>
+          <td>{{i.name}}</td>
+          <td>{{i.branch}}</td>
+          <td>{{i.year}}</td>
         </tr>
         {% endfor %}
         {% else %}
@@ -34,6 +35,13 @@
       </tbody>
     </table>
   </div>
+
+  
+  {% else %}
+
+  <h2>You cant access this page!</h2>
+
+  {% endif %}
 
 
 {% endblock %}

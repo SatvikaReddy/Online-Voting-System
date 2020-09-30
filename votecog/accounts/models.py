@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import User
 # Create your models here.
 from django.urls import reverse
+from django.utils import timezone
 
 YEAR_CHOICES = (
     ('1st', '1ST'),
@@ -10,16 +11,17 @@ YEAR_CHOICES = (
     ('3rd','3RD'),
     ('4th','4TH')
 )
-
-
-class Person(models.Model):
-    name = models.CharField(max_length=130)
-    email = models.EmailField(blank=True)
-    year = models.CharField(max_length=6, choices=YEAR_CHOICES, default='1st')
-    bio = models.TextField(blank=True)
-
-    def get_absolute_url(self):
-        return reverse('success')
+DEPT_CHOICES= (
+    ('it', 'IT'),
+    ('cse', 'CSE'),
+    ('civil', 'CIVIL'),
+    ('eee', 'EEE'),
+    ('ece','ECE'),
+    ('chemical','CHEMICAL'),
+    ('biotech','BIOTECH'),
+    ('mech','MECH'),
+    ('prod','PROD'),
+)
 
 class MyAccountManager(BaseUserManager):
     def create_user(self, email, username ,password=None):
@@ -75,4 +77,21 @@ class Account(AbstractBaseUser):
     
     def has_module_perms(self, app_label):
         return True
+
+
+class Person(models.Model):
+    user = models.ForeignKey(Account,on_delete=models.CASCADE)
+    name = models.CharField(max_length=130)
+    branch = models.CharField(max_length=8, choices=DEPT_CHOICES, default='cse')
+    year = models.CharField(max_length=6, choices=YEAR_CHOICES, default='1st')
+    bio = models.TextField(blank=True)
+    status= models.CharField(max_length=130,default="pending")
+    published_date = models.DateTimeField(default=timezone.now)
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def get_absolute_url(self):
+        return reverse('success')
     
