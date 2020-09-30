@@ -37,7 +37,7 @@ class MyAccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, password, email):
+    def create_superuser(self, username, is_voter, password, email):
         user = self.create_user(
             email=self.normalize_email(email),
             password=password,

@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+
+{% block content%}
+	<h1>Your post</h1>
+	{% if user.is_authenticated and user.is_voter == False %}
+		
+		{% if user.username == post.author.username %}
+			<form method="POST" class="post-form">{% csrf_token %}
+				{{ form.as_p }}
+				<button type="submit" class="save btn btn-default">Save</button>
+			</form>
+		
+		{% else %}
+			<form method="POST" class="post-form">{% csrf_token %}
+				{{ form.as_p }}
+				<button type="submit" class="save btn btn-default">Save</button>
+			</form>
+		{% endif %}
+	{% endif %}
+{% endblock %}

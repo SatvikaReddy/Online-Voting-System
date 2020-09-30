@@ -1,9 +1,0 @@
-{% extends 'blog/base.html' %}
-
-{% block content%}
-	<h1>Delete post "{{ post.title }}" </h1>
-	<form method="POST" class="post-form">{% csrf_token %}
-        <strong>Are you sure?</strong> <br> <br>
-		<button class="btn btn-danger">Delete Post</button>
-	</form>
-{% endblock %}

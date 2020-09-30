@@ -16,7 +16,7 @@ class CandidateForm(admin.ModelAdmin):
 admin.site.register(Person,CandidateForm)
 
 class AccountAdmin(UserAdmin):
-    list_display = ('username', 'email', 'date_joined', 'last_login', 'is_voter', 'is_admin')
+    list_display = ('username', 'email', 'date_joined', 'last_login', 'is_voter', 'is_active','is_admin')
     search_fields = ('email', 'username')
     readonly_fields = ('date_joined', 'last_login')
 
