@@ -80,7 +80,7 @@ class Account(AbstractBaseUser):
 
 
 class Person(models.Model):
-    user = models.ForeignKey(Account,on_delete=models.CASCADE)
+    candidate = models.ForeignKey(Account,on_delete=models.CASCADE)
     name = models.CharField(max_length=130)
     branch = models.CharField(max_length=8, choices=DEPT_CHOICES, default='cse')
     year = models.CharField(max_length=6, choices=YEAR_CHOICES, default='1st')
