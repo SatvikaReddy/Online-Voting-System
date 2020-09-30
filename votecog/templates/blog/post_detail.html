@@ -11,8 +11,8 @@
         {% if user.is_authenticated %}
             {% if user.username == post.author.username %}
                 both same
-                <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a class="btn btn-default" href="{% url 'post_delete' pk=post.pk %}"><span class="glyphicon glyphicon-trash"></span></a>
+                <a class="btn btn-default" href="{% url 'blog:post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="btn btn-default" href="{% url 'blog:post_delete' pk=post.pk %}"><span class="glyphicon glyphicon-trash"></span></a>
             {% else %}
                 both are not same
             {% endif %}

@@ -7,9 +7,10 @@
         <p>{{ user.email }}</p>
         {% if user.is_voter %}
             <p>User is a voter? {{user.is_voter}}</p>
+            <a href="{% url 'accounts:person_form' %}">Register</a>
         {% else %}
             <p>User is a voter? {{user.is_voter}}</p>
         {% endif %}
-        <a href="{% url 'accounts:person_form' %}">Register</a>
     {% endif %}
+    <a href="{% url 'blog:post_list' %}">Go to feed!</a>
 {% endblock content %}

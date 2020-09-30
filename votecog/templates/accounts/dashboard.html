@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Applications-List{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{% if user.is_admin %}
+<div class="container">
+    <h2 style="color: rgb(11, 11, 12); ">Candidate Requests</h2>   
+    <br>      
+    <table class="table table-hover">
+      <thead>
+        {% if values1.status == "pending" %}
+        <tr>
+        <th style="color: black">Roll Number</th>
+          <th style="color: black">Name</th>
+          <th style="color: black">Branch</th>
+          <th style="color: rgb(12, 12, 12)">Year</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in values1 %}
+        <tr>
+            <td style="text-decoration: none !important;"><a href="{{i.pk}}" id="number" name="number">Roll No</a></td>
+          <td>{{i.name}}</td>
+          <td>{{i.branch}}</td>
+          <td>{{i.year}}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <h3 style="color: rgb(28, 28, 160)">No Pending Candidate Form Requests</h3>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  
+  {% else %}
+
+  <h2>You cant access this page!</h2>
+
+  {% endif %}
+
+
+{% endblock %}

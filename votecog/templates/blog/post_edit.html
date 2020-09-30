@@ -9,12 +9,22 @@
 				{{ form.as_p }}
 				<button type="submit" class="save btn btn-default">Save</button>
 			</form>
-		
-		{% else %}
+
+			{% elif user.username != post.author.username and post.author.username|length == 0 %}
+
 			<form method="POST" class="post-form">{% csrf_token %}
 				{{ form.as_p }}
 				<button type="submit" class="save btn btn-default">Save</button>
 			</form>
+
+			{% else %}
+			<h2>You cant access this!</h2>
+
+
 		{% endif %}
+
+		{% else %}
+			<h2>You cant access this!</h2>
 	{% endif %}
+
 {% endblock %}
