@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block content%}
+	<h1>Delete post "{{ post.title }}" </h1>
+	{% if user.is_authenticated and user.is_voter == False %}
+		{% if user.username == post.author.username %}
+			<form method="POST" class="post-form">{% csrf_token %}
+				<strong>Are you sure?</strong> <br> <br>
+				<button class="btn btn-danger">Delete Post</button>
+			</form>
+		{% else %}
+			You are not allowed to delete!
+		{% endif %}
+	{% endif %}
+{% endblock %}

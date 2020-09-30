@@ -5,9 +5,11 @@ from .models import Post
 from .forms import PostForm
 from django.views.generic import DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+
 
 def post_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+    posts =  Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
     return render(request, 'blog/post_list.html', {'posts':posts})
 
 def post_detail(request, pk):
@@ -27,6 +29,7 @@ def post_new(request):
         form = PostForm()
     return render(request, 'blog/post_edit.html', {'form': form})
 
+@login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
@@ -38,7 +41,7 @@ def post_edit(request, pk):
             return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm(instance=post)
-    return render(request, 'blog/post_edit.html', {'form': form, 'post':post})
+    return render(request, 'blog/post_edit.html', {'form': form,'post': post})
 
 class DeletePostView(DeleteView):
     model= Post

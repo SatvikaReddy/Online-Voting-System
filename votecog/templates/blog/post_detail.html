@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="post">
+        {% if post.published_date %}
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            {% if user.username == post.author.username %}
+                both same
+                <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="btn btn-default" href="{% url 'post_delete' pk=post.pk %}"><span class="glyphicon glyphicon-trash"></span></a>
+            {% else %}
+                both are not same
+            {% endif %}
+            
+        {% else %}
+            User not authenticated!
+        {% endif %}
+		<h1>{{ post.title }}</h1>
+        <p>{{ post.text|linebreaks }}</p>
+	</div>
+{% endblock %}
