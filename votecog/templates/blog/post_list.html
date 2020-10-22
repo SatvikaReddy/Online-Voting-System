@@ -9,6 +9,17 @@
 			</div>
 			<h1><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
 			<p>{{ post.text|linebreaks }}</p>
+			<form action="{% url 'blog:like_post' %}" method="POST">
+				{% csrf_token %}
+				<input type="hidden" name="post_id" value="{{ post.id }}">
+				{% if user not in post.liked.all %}
+					<button type="submit">Like</button>
+				{% else %}
+					<button type="submit">Unlike</button>
+				{% endif %}
+				<strong>{{ post.liked.all.count }} likes</strong>
+			</form>
+			
 		</div>	
 	{% endfor %}
 {% endblock %}
