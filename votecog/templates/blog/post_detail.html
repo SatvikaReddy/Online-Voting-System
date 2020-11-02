@@ -22,6 +22,26 @@
         {% endif %}
         <h1>{{ post.title }}</h1>
         <p>{{ post.text|linebreaks }}</p>
+        <br><br>
+        <hr>
+        <h2>Comments...</h2>
+        {{ comments.count }}Comment{{ comments|pluralize }}
+        <br>
+        <form method="POST">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+        {{post.id}}
         
+        <hr>
+        {% for comment in comments %}
+        {{request.user}}--{{comment.user}}
+        <hr>
+            <strong>{{ comment.user }}-{{ comment.date_added }}</strong>
+            <br>
+            {{ comment.content }}
+            <hr>
+        {% endfor %}
 	</div>
 {% endblock %}
