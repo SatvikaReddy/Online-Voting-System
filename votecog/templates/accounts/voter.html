@@ -12,5 +12,6 @@
             <p>User is a voter? {{user.is_voter}}</p>
         {% endif %}
     {% endif %}
-    <a href="{% url 'blog:post_list' %}">Go to feed!</a>
+    <a href="{% url 'blog:post_list' %}">Go to feed!</a> <br>
+    <a href="{% url 'accounts:vote' %}">Vote!</a>
 {% endblock content %}

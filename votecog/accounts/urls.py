@@ -13,4 +13,7 @@ urlpatterns = [
     path('dash/', views.dashboard, name='dashboard'),
     url(r'^dash/(?P<pk>[0-9]+)/cstatus/$', views.cstatus, name='cstatus'),
     url(r'^dash/(?P<pk>[0-9]+)/$', views.sdetails, name='sdetails'),
+    path('vote/', views.vote, name='vote'),
+    url(r'^vote/(?P<pk>[0-9]+)/$', views.convote, name='convote'),
+    url(r'^vote/(?P<pk>[0-9]+)/addvote/$', views.addvote, name='addvote'),
 ]

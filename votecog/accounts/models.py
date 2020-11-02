@@ -87,6 +87,7 @@ class Person(models.Model):
     bio = models.TextField(blank=True)
     status= models.CharField(max_length=130,default="pending")
     published_date = models.DateTimeField(default=timezone.now)
+    vote=models.IntegerField(default=0)
 
     def publish(self):
         self.published_date = timezone.now()

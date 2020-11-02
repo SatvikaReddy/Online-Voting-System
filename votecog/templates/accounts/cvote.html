@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+{% if user.is_authenticated and user.is_voter %}
+
+Are you sure you want to vote for {{values1.name}}? <br> <br>
+
+<a href="addvote?vote=1"><button class="btn btn-info">VOTE</button> </a><br> <br>
+
+<b>PS: You wont be allowed to vote again</b>
+
+
+
+{% endif %}
+
+
+{% endblock content %}

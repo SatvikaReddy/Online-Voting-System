@@ -71,3 +71,22 @@ def cstatus(request,pk):
 def sdetails(request, pk):
     form = get_object_or_404(Person, pk=pk)
     return render(request,'accounts/sdetails.html', {'res': form})
+
+def vote(request):
+    form = Person.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request,'accounts/voting.html', {'values': form})
+
+def convote(request,pk):
+    form = get_object_or_404(Person, pk=pk)
+    return render(request,'accounts/cvote.html', {'values1': form})
+
+@csrf_exempt
+def addvote(request,pk):
+    form = get_object_or_404(Person, pk=pk)
+    vote =request.GET.get('vote')
+    if (int(vote) == 1):
+        form.vote = form.vote + 1
+        form.save()
+        return render(request, 'accounts/voter.html')
+    else:
+        return redirect('accounts:vote')
