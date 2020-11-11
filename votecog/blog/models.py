@@ -43,11 +43,11 @@ class Like(models.Model):
         return str(self.post)
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    user = models.ForeignKey(Account,on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments',null=True, blank=True)
+    user = models.ForeignKey(Account,on_delete=models.CASCADE,null=True, blank=True)
     content = models.TextField(max_length=250)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '{}-{}'.format(self.post.title, str(self.user.username))
+        return str(self.content)
     
