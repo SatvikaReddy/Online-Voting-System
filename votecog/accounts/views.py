@@ -86,6 +86,8 @@ def addvote(request,pk):
     vote =request.GET.get('vote')
     if (int(vote) == 1):
         form.vote = form.vote + 1
+        request.user.voted = "yes"
+        request.user.save()
         form.save()
         return render(request, 'accounts/voter.html')
     else:

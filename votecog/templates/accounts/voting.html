@@ -1,48 +1,376 @@
-{% extends "base.html" %}
-
 {% load crispy_forms_tags %}
-{% block content %}
-{% if user.is_authenticated and user.is_voter %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
 
-<div class="container">
-    <h2 style="color: rgb(11, 11, 12); ">Candidates Contesting</h2>   
-    <br>      
-    <table class="table table-hover">
-      <thead>
-        {% if values %}
-        <tr>
-        <th style="color: black">Roll Number</th>
-          <th style="color: black">Name</th>
-          <th style="color: black">Branch</th>
-          <th style="color: rgb(12, 12, 12)">Year</th>
-          <th style="color: rgb(12, 12, 12)">VOTE</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for i in values %}
-        {% if i.status == "accepted" %}
-        <tr>
-            <td>Roll No</td>
-          <td>{{i.name}}</td>
-          <td>{{i.branch}}</td>
-          <td>{{i.year}}</td>
-          <td style="text-decoration: none !important;"><a href="{{i.pk}}"><button type="button" class="btn btn-success" style="text-decoration: none !important; color: aliceblue;">VOTE</button></a></td>
-        </tr>
-        {% endif %}
-        {% endfor %}
-        {% else %}
-        <h3 style="color: rgb(28, 28, 160)">No Candidates Contesting</h3>
-        {% endif %}
-      </tbody>
-    </table>
-  </div>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+  <title>VoteCog</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700|Raleway:300,400,400i,500,500i,700,800,900" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/nivo-slider/css/nivo-slider.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: eBusiness - v2.1.1
+  * Template URL: https://bootstrapmade.com/ebusiness-bootstrap-corporate-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body data-spy="scroll" data-target="#navbar-example">
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex">
+
+      <div class="logo mr-auto">
+        <h1 class="text-light"><a href="#"><span>vote</span>cog</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav class="nav-menu d-none d-lg-block">
+        {% if user.is_authenticated %}
+        <ul>
+          <li class="active"><a href="#header">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <!-- <li><a href="#services">Services</a></li> -->
+          <li><a href="#team">Team</a></li>
+          <!-- <li><a href="#portfolio">Portfolio</a></li> -->
+          {% if user.is_voter == False %}
+            <li class="drop-down"><a href="">Blog</a>
+              <ul>
+                <li><a href="{% url 'blog:post_new' %}">Add post</a></li>
+              </ul>
+            </li>
+          {% endif %}
+          <li><a href="#contact">Contact</a></li>
+          <!-- <li><a href="#login">Login</a></li> -->
+          <li class="drop-down"><a href="">{{user.username}}</a>
+            <ul>
+            <li><a href="{% url 'accounts:profile' %}">Profile</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+          </li>
   
-  {% else %}
+          </ul>
+  
+        {% else %}
+        <ul>
+        <li class="active"><a href="#header">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <!-- <li><a href="#services">Services</a></li> -->
+        <li><a href="#team">Team</a></li>
+        <!-- <li><a href="#portfolio">Portfolio</a></li> -->
+        <li><a href="#blog">Blog</a></li>
+  
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+  
+        </ul>
+        {% endif %}
+        </nav><!-- .nav-menu -->
+  
+      </div>
+    </header><!-- End Header -->
 
-  <h2>You cant access this page!</h2>
-
-  {% endif %}
 
 
-{% endblock content %}
+  <main id="main">
+
+
+
+    {% if user.is_authenticated and user.is_voter and user.voted == "no" %}
+    <!-- ======= Pricing Section ======= -->
+    <div id="pricing" class="pricing-area area-padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="section-headline text-center">
+              <br><br>
+              <h2>Candidates contesting</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          {% for i in values %}
+          {% if i.status == "accepted" %}
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <br>
+            <div class="pri_table_list">
+              <img src="https://www.lococrossfit.com/wp-content/uploads/2019/02/user-icon.png" class="rounded-circle" style="width: 50%; margin-top: 10px;">
+              <ol style="text-align: center;">
+                <!-- <li class="check">Online system</li> -->
+                <li class="" style="border-bottom: 0px solid #ccc;text-align: center; font-size: 20px; "><strong>{{i.name}}</strong></li>
+                <li class="" style="border-bottom: 0px solid #ccc;text-align: center;font-size: 14px;">{{i.branch}} - {{i.year}}</li>
+                <!-- <li class="" style="border-bottom: 0px solid #ccc;text-align: center;">{{i.year}}</li> -->
+                <li class="" style="border-bottom: 0px solid #ccc;text-align: center;"><a href="{{i.pk}}"><button type="button" class="btn btn-success" style="text-decoration: none !important; color: aliceblue;">VOTE</button></a></li>
+                <!-- <li class="check cross">Support unlimited</li>
+                <li class="check">Payment online</li>
+                <li class="check cross">Cash back</li> -->
+              </ol>
+              
+              <!-- <button>sign up now</button> -->
+            </div>
+          </div>
+          
+          {% endif %}
+          {% endfor %}
+          {% else %}
+          <h3 style="color: rgb(28, 28, 160)">No Candidates Contesting</h3>  
+        </div>
+
+      </div>
+    </div><!-- End Pricing Section -->
+    <!-- <h2>You cant access this page!</h2> -->
+    {% endif %}
+
+    
+    {% block content %}
+    {% endblock %}
+    <!-- ======= Suscribe Section ======= -->
+    <!-- <div class="suscribe-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs=12">
+            <div class="suscribe-text text-center">
+              <h3>Welcome to our eBusiness company</h3>
+              <a class="sus-btn" href="#">Get A quate</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> --><!-- End Suscribe Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <div id="contact" class="contact-area">
+      <div class="contact-inner area-padding">
+        <div class="contact-overly"></div>
+        <div class="container ">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="section-headline text-center">
+                <h2>Contact us</h2>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!-- Start contact icon column -->
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="contact-icon text-center">
+                <div class="single-icon">
+                  <i class="fa fa-mobile"></i>
+                  <p>
+                    Call: +1 5589 55488 55<br>
+                    <span>Monday-Friday (9am-5pm)</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Start contact icon column -->
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="contact-icon text-center">
+                <div class="single-icon">
+                  <i class="fa fa-envelope-o"></i>
+                  <p>
+                    Email: info@example.com<br>
+                    <span>Web: www.example.com</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Start contact icon column -->
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="contact-icon text-center">
+                <div class="single-icon">
+                  <i class="fa fa-map-marker"></i>
+                  <p>
+                    Location: A108 Adam Street<br>
+                    <span>NY 535022, USA</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <!-- Start Google Map -->
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <!-- Start Map -->
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22864.11283411948!2d-73.96468908098944!3d40.630720240038435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sbg!4v1540447494452" width="100%" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
+              <!-- End Map -->
+            </div>
+            <!-- End Google Map -->
+
+            <!-- Start  contact -->
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="form contact-form">
+                <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                  <div class="form-group">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                    <div class="validate"></div>
+                  </div>
+                  <div class="form-group">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                    <div class="validate"></div>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                    <div class="validate"></div>
+                  </div>
+                  <div class="form-group">
+                    <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                    <div class="validate"></div>
+                  </div>
+                  <div class="mb-3">
+                    <div class="loading">Loading</div>
+                    <div class="error-message"></div>
+                    <div class="sent-message">Your message has been sent. Thank you!</div>
+                  </div>
+                  <div class="text-center"><button type="submit">Send Message</button></div>
+                </form>
+              </div>
+            </div>
+            <!-- End Left contact -->
+          </div>
+        </div>
+      </div>
+    </div><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer>
+    <div class="footer-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="footer-content">
+              <div class="footer-head">
+                <div class="footer-logo">
+                  <h2><span>e</span>Business</h2>
+                </div>
+
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.</p>
+                <div class="footer-icons">
+                  <ul>
+                    <li>
+                      <a href="#"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-google"></i></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end single footer -->
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="footer-content">
+              <div class="footer-head">
+                <h4>information</h4>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+                </p>
+                <div class="footer-contacts">
+                  <p><span>Tel:</span> +123 456 789</p>
+                  <p><span>Email:</span> contact@example.com</p>
+                  <p><span>Working Hours:</span> 9am-5pm</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end single footer -->
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="footer-content">
+              <div class="footer-head">
+                <h4>Instagram</h4>
+                <div class="flicker-img">
+                  <a href="#"><img src="assets/img/portfolio/1.jpg" alt=""></a>
+                  <a href="#"><img src="assets/img/portfolio/2.jpg" alt=""></a>
+                  <a href="#"><img src="assets/img/portfolio/3.jpg" alt=""></a>
+                  <a href="#"><img src="assets/img/portfolio/4.jpg" alt=""></a>
+                  <a href="#"><img src="assets/img/portfolio/5.jpg" alt=""></a>
+                  <a href="#"><img src="assets/img/portfolio/6.jpg" alt=""></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-area-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="copyright text-center">
+              <p>
+                &copy; Copyright <strong>eBusiness</strong>. All Rights Reserved
+              </p>
+            </div>
+            <div class="credits">
+              <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=eBusiness
+            -->
+              Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer><!-- End  Footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/appear/jquery.appear.js' %}"></script>
+  <script src="{% static 'assets/vendor/knob/jquery.knob.js' %}"></script>
+  <script src="{% static 'assets/vendor/parallax/parallax.js' %}"></script>
+  <script src="{% static 'assets/vendor/wow/wow.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/nivo-slider/js/jquery.nivo.slider.js' %}"></script>
+  <script src="{% static 'assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/venobox/venobox.min.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

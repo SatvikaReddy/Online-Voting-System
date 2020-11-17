@@ -46,7 +46,7 @@ class MyAccountManager(BaseUserManager):
             username=username,
         )
 
-    
+        user.is_voter = False
         user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
@@ -63,6 +63,7 @@ class Account(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
+    voted = models.CharField(max_length=30, default="no")
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email','is_voter']

@@ -1,8 +1,8 @@
 import string
 from collections import Counter
 
-# import nltk
-# nltk.download('vader_lexicon')
+import nltk
+nltk.download('vader_lexicon')
 
 import matplotlib.pyplot as plt
 from nltk.corpus import stopwords

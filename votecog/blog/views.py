@@ -24,7 +24,7 @@ def post_detail(request, pk):
             content = request.POST.get('content')
             Comment.objects.create(post=post, user=request.user, content=content)
             comment_form.save()
-            return HttpResponseRedirect(post.get_absolute_url())
+            return redirect('blog:post_list')
     else:
         comment_form = CommentForm()
     return render(request, 'blog/post_detail.html', {'post': post,'comments':comments, 'comment_form':comment_form})
