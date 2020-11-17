@@ -52,19 +52,23 @@
       <nav class="nav-menu d-none d-lg-block">
 		  {% if user.is_authenticated %}
 			<ul>
-				<li class="active"><a href="#header">Home</a></li>
+				<!-- <li class="active"><a href="#header">Home</a></li> -->
 				<li><a href="#about">About</a></li>
 				<!-- <li><a href="#services">Services</a></li> -->
 				<li><a href="#team">Team</a></li>
 				<!-- <li><a href="#portfolio">Portfolio</a></li> -->
 				{% if user.is_voter == False %}
-					<li class="drop-down"><a href="">Blog</a>
+					<li class="drop-down"><a href="{% url 'blog:post_list' %}">Blog</a>
 						<ul>
 							<li><a href="{% url 'blog:post_new' %}">Add post</a></li>
 						</ul>
 					</li>
-				{% endif %}
-				<li><a href="#contact">Contact</a></li>
+        {% endif %}
+        {% if user.is_admin %}
+            <li><a href="{% url 'accounts:dashboard' %}">Candidate Requests</a></li>
+            {% else %}
+            <li><a href="#contact">Contact</a></li>
+            {% endif %}
 				<!-- <li><a href="#login">Login</a></li> -->
 				<li class="drop-down"><a href="">{{user.username}}</a>
 					<ul>
@@ -77,7 +81,7 @@
 
 		  {% else %}
 			<ul>
-			<li class="active"><a href="#header">Home</a></li>
+			<!-- <li class="active"><a href="#header">Home</a></li> -->
 			<li><a href="#about">About</a></li>
 			<!-- <li><a href="#services">Services</a></li> -->
 			<li><a href="#team">Team</a></li>

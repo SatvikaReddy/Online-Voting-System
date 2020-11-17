@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^post/(?P<pk>[0-9]+)/edit/$', views.post_edit, name='post_edit'),
     url(r'^post/(?P<pk>[0-9]+)/delete/$', DeletePostView.as_view(), name='post_delete'),
     path('like/', like_post, name='like_post'),
+    path('stat/', views.stat, name='stat'),
     # url(r'^post/(?P<pk>[0-9]+)/comment/$', views.AddCommentView, name='add_comment'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -7,6 +7,7 @@ from django.views.generic import DeleteView, CreateView, TemplateView
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+import sent
 
 def post_list(request):
     posts =  Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
@@ -59,7 +60,7 @@ def post_edit(request, pk):
 class DeletePostView(DeleteView):
     model= Post
     template_name='blog/post_delete.html'
-    success_url=reverse_lazy('post_list')
+    success_url=reverse_lazy('blog:post_list')
 
 def like_post(request):
     user = request.user
@@ -95,3 +96,15 @@ def like_post(request):
 
     
     # success_url = reverse_lazy('post_list')
+
+
+def stat(request):
+    x=[]
+    user=request.user
+    comment =  Comment.objects.filter(date_added__lte=timezone.now()).order_by('-date_added')
+    for i in comment:
+        if i.post!= None:
+            if i.post.author.username == user.username:
+                x.append(i.content)
+    sent.plot(x)
+    return render(request,'blog/stat.html',{"comment": comment})

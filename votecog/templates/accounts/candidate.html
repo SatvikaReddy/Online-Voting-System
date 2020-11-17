@@ -52,26 +52,31 @@
       <nav class="nav-menu d-none d-lg-block">
           {% if user.is_authenticated %}
             <ul>
-            <li class="active"><a href="#header">Home</a></li>
+            <!-- <li class="active"><a href="#header">Home</a></li> -->
             <li><a href="#about">About</a></li>
             <!-- <li><a href="#services">Services</a></li> -->
-            <li><a href="#team">Team</a></li>
+            <li><a href="{% url 'blog:stat' %}">Statistics</a></li>
             <!-- <li><a href="#portfolio">Portfolio</a></li> -->
             <li class="drop-down"><a href="{% url 'blog:post_list' %}">Blog</a>
                 <ul>
                     <li><a href="{% url 'blog:post_new' %}">Add post</a></li>
                 </ul>
             </li>
+            {% if user.is_admin %}
+            <li><a href="{% url 'accounts:dashboard' %}">Candidate Requests</a></li>
+            {% else %}
             <li><a href="#contact">Contact</a></li>
+            {% endif %}
+
             <li><a href="{% url 'logout' %}">Logout</a></li>
 
             </ul>
            {% else %}
            <ul>
-            <li class="active"><a href="#header">Home</a></li>
+            <!-- <li class="active"><a href="#header">Home</a></li> -->
             <li><a href="#about">About</a></li>
             <!-- <li><a href="#services">Services</a></li> -->
-            <li><a href="#team">Team</a></li>
+            <!-- <li><a href="#team">Team</a></li> -->
             <!-- <li><a href="#portfolio">Portfolio</a></li> -->
             <li><a href="{% url 'blog:post_list' %}">Blog</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -157,7 +162,7 @@
                   <i class="ni education_hat mr-2"></i>Chaitanya Bharathi Institute of Technology
                 </div>
                 <hr class="my-4">
-                <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
+                <p>Your information is present here.</p>
                 <a href="#">Show more</a>
               </div>
             </div>
@@ -216,7 +221,7 @@
                 <div class="pl-lg-4">
                   <div class="form-group focused">
                     <label>About Me</label>
-                    <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
+                    <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">Write something about yourself!</textarea>
                   </div>
                 </div>
               </form>

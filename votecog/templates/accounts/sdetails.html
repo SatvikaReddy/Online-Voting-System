@@ -61,14 +61,14 @@
 				<li><a href="#team">Team</a></li>
 				<!-- <li><a href="#portfolio">Portfolio</a></li> -->
 				{% if user.is_voter == False and user.username != post.author.username %}
-					<li class="drop-down"><a href="">Blog</a>
+					<li class="drop-down"><a href="{% url 'blog:post_list' %}">Blog</a>
 						<ul>
                             <li><a href="{% url 'blog:post_new' %}">Add post</a></li>
 						</ul>
                     </li>
                 {% endif %}
                 {% if user.is_voter == False and user.username == post.author.username %}
-                    <li class="drop-down"><a href="">Blog</a>
+                    <li class="drop-down"><a href="{% url 'blog:post_list' %}">Blog</a>
                         <ul>
                             <li><a href="{% url 'blog:post_new' %}">Add post</a></li>
                             <li><a href="{% url 'blog:post_edit' pk=post.pk %}">Edit post</a></li>

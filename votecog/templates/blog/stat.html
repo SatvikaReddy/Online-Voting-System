@@ -44,167 +44,137 @@
     <div class="container d-flex">
 
       <div class="logo mr-auto">
-        <h1 class="text-light"><a href="#"><span>vote</span>cog</a></h1>
+        <h1 class="text-light"><a href="index.html"><span>vote</span>cog</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
       <nav class="nav-menu d-none d-lg-block">
-		  {% if user.is_authenticated %}
-			<ul>
-				<!-- <li class="active"><a href="#header">Home</a></li> -->
-				<li><a href="#about">About</a></li>
-				<!-- <li><a href="#services">Services</a></li> -->
-				<li><a href="#team">Team</a></li>
-				<!-- <li><a href="#portfolio">Portfolio</a></li> -->
-				{% if user.is_voter == False and user.username != post.author.username %}
-					<li class="drop-down"><a href="{% url 'blog:post_list' %}">Blog</a>
-						<ul>
-                            <li><a href="{% url 'blog:post_new' %}">Add post</a></li>
-						</ul>
-                    </li>
-                {% endif %}
-        {% if user.is_voter == False and user.username == post.author.username %}
-                    <li class="drop-down"><a href="{% url 'blog:post_list' %}">Blog</a>
-                        <ul>
-                            <li><a href="{% url 'blog:post_new' %}">Add post</a></li>
-                            <li><a href="{% url 'blog:post_edit' pk=post.pk %}">Edit post</a></li>
-                            <li><a href="{% url 'blog:post_delete' pk=post.pk %}">Delete post</a></li>
-                        </ul>
-                    </li>
-				{% endif %}
-				{% if user.is_voter != False %}
-					<li><a href="#blog">Blog</a></li>
-				{% endif %}
-				<li><a href="#contact">Contact</a></li>
-				<!-- <li><a href="#login">Login</a></li> -->
-				<li class="drop-down"><a href="">{{user.username}}</a>
-					<ul>
-					<li><a href="{% url 'accounts:profile' %}">Profile</a></li>
-					<li><a href="{% url 'logout' %}">Logout</a></li>
-					</ul>
-				</li>
+          {% if user.is_authenticated %}
+            <ul>
+            <!-- <li class="active"><a href="#header">Home</a></li> -->
+            <li><a href="#about">About</a></li>
+            <!-- <li><a href="#services">Services</a></li> -->
+      
+              <li><a href="#team">Statistics</a></li>
+      
+            <!-- <li><a href="#portfolio">Portfolio</a></li> -->
+            <li class="drop-down"><a href="{% url 'blog:post_list' %}">Blog</a>
+                <ul>
+                    <li><a href="{% url 'blog:post_new' %}">Add post</a></li>
+                </ul>
+            </li>
+            {% if user.is_admin %}
+            <li><a href="{% url 'accounts:dashboard' %}">Candidate Requests</a></li>
+            {% else %}
+            <li><a href="#contact">Contact</a></li>
+            {% endif %}
 
-				</ul>
+            <li class="drop-down"><a href="">{{user.username}}</a>
+              <ul>
+              <li><a href="{% url 'accounts:profile' %}">Profile</a></li>
+              <li><a href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+            </li>
 
-		  {% else %}
-			<ul>
-			<!-- <li class="active"><a href="#header">Home</a></li> -->
-			<li><a href="#about">About</a></li>
-			<!-- <li><a href="#services">Services</a></li> -->
-			<li><a href="#team">Team</a></li>
-			<!-- <li><a href="#portfolio">Portfolio</a></li> -->
-			<li><a href="#blog">Blog</a></li>
+            </ul>
+           {% else %}
+           <ul>
+            <!-- <li class="active"><a href="#header">Home</a></li> -->
+            <li><a href="#about">About</a></li>
+            <!-- <li><a href="#services">Services</a></li> -->
+            <!-- <li><a href="#team">Team</a></li> -->
+            <!-- <li><a href="#portfolio">Portfolio</a></li> -->
+            <li><a href="{% url 'blog:post_list' %}">Blog</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
 
-			<li><a href="#contact">Contact</a></li>
-			<li><a href="{% url 'login' %}">Login</a></li>
-
-			</ul>
-			{% endif %}
+            </ul>
+            {% endif %}
       </nav><!-- .nav-menu -->
 
     </div>
   </header><!-- End Header -->
-  <main id="main">
-{% if user.is_authenticated and user.is_voter == False and user.username == post.author.username %}
-    <!-- ======= Blog Header ======= -->
-    <div class="header-bg page-area">
-      <div class="home-overly"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="slider-content text-center">
-              <div class="header-bottom">
-                <div class="layer2 wow zoomIn" data-wow-duration="1s" data-wow-delay=".4s">
-                  <h1 class="title2">Blog Details </h1>
-                </div>
-                <div class="layer3 wow zoomInUp" data-wow-duration="2s" data-wow-delay="1s">
-                  <h2 class="title3">profesional Blog Page</h2>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div><!-- End Blog Header -->
-    <!-- ======= Blog Page ======= -->
-    <div class="blog-page area-padding">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-              <div class="page-head-blog">
-                <div class="single-blog-page">
-                </div>
-                <div class="single-blog-page">
-                </div>
-            </div>
-            <div class="single-blog-page">
-            </div>
-            <div class="single-blog-page">
-              <div class="left-tags blog-tags">
-            </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-8 col-sm-8 col-xs-12">
-        <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <!-- single-blog start -->
-            <article class="blog-post-wrapper">
-              <div class="post-thumbnail">
-                <img src="{% static 'assets/img/blog/6.jpg' %}" alt="" />
-              </div>
-              <div class="post-information">
-                <h2>{{post.title}}</h2>
-                <div class="entry-meta">
-                  <span class="author-meta"><i class="fa fa-user"></i> <a href="#">{{post.author.username}}</a></span>
-                  <span><i class="fa fa-clock-o"></i> {{post.published_date}}</span>
-                  <span><i class="fa fa-comments-o"></i> <a href="#">{{ comments.count }}Comment{{ comments|pluralize }}</a></span>
-                    {% if user.is_authenticated %}
-                    <form action="{% url 'blog:like_post' %}" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="post_id" value="{{ post.id }}">
-                    {% if user not in post.liked.all %}
-                        <span><a href="#"><button type="submit">Like</button></a></span>
-                    {% else %}
-                        <span><a href="#"><button type="submit">Unlike</button></a></span>
-                    {% endif %}
-                    </form>
-                    {% endif %}
-                   <span><i class="fa fa-thumbs-o-up"></i> <a href="#">{{ post.liked.all.count }} Like{{ likes|pluralize}}</a></span>
-                </div>
-                <!-- <div class="entry-content">
-                  <p>{{ post.text|linebreaks }}</p>
-                </div> -->
-              </div>
-            </article>
-            <div class="clear"></div>
-            <div class="comment-respond">
-                <h3 class="comment-reply-title">Delete post </h3>
-                <span class="email-notes"></span>
-                <form method="POST">
-					{% csrf_token %}
-					<h2>Are you sure?</h2>
-                    <button class="btn btn-danger">Delete Post</button>
-                </form>
-              </div>
-            </div>
-            <!-- single-blog end -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div><!-- End Blog Page -->
-{% else %}
-	ERROR
-{% endif %}
-</main><!-- End #main -->
-  
-  {% block content %}
-  {% endblock %}
 
-    
+  
+  <main id="main">
+<!-- Header -->
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 450px; background-image: url(https://cdn.slashgear.com/wp-content/uploads/2020/04/star-wars-backgrounds-25.jpg); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">Hello {{user.username}}</h1>
+            <p class="text-white mt-0 mb-5">This is your statistics page! You can examine the response given by everyone here!</p>
+            <!-- <a href="#!" class="btn btn-info">Edit profile</a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <br><br>
+
+     <p>This is the graph!</p>
+     <img src='#', alt="Wait for the Ananlysis">
+
+    <!-- ======= Contact Section ======= -->
+    <div id="contact" class="contact-area">
+      <div class="contact-inner area-padding">
+        <div class="contact-overly"></div>
+        <div class="container ">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="section-headline text-center">
+                <h2>Contact us</h2>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!-- Start contact icon column -->
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="contact-icon text-center">
+                <div class="single-icon">
+                  <i class="fa fa-mobile"></i>
+                  <p>
+                    Call: +1 5589 55488 55<br>
+                    <span>Monday-Friday (9am-5pm)</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Start contact icon column -->
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="contact-icon text-center">
+                <div class="single-icon">
+                  <i class="fa fa-envelope-o"></i>
+                  <p>
+                    Email: info@example.com<br>
+                    <span>Web: www.example.com</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Start contact icon column -->
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="contact-icon text-center">
+                <div class="single-icon">
+                  <i class="fa fa-map-marker"></i>
+                  <p>
+                    Location: A108 Adam Street<br>
+                    <span>NY 535022, USA</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div><!-- End Contact Section -->
+
+  </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer>
@@ -260,12 +230,12 @@
               <div class="footer-head">
                 <h4>Instagram</h4>
                 <div class="flicker-img">
-                  <a href="#"><img src="assets/img/portfolio/1.jpg" alt=""></a>
-                  <a href="#"><img src="assets/img/portfolio/2.jpg" alt=""></a>
-                  <a href="#"><img src="assets/img/portfolio/3.jpg" alt=""></a>
-                  <a href="#"><img src="assets/img/portfolio/4.jpg" alt=""></a>
-                  <a href="#"><img src="assets/img/portfolio/5.jpg" alt=""></a>
-                  <a href="#"><img src="assets/img/portfolio/6.jpg" alt=""></a>
+                  <a href="#"><img src="{% static 'assets/img/portfolio/1.jpg' %}" alt=""></a>
+                  <a href="#"><img src="{% static 'assets/img/portfolio/2.jpg' %}" alt=""></a>
+                  <a href="#"><img src="{% static 'assets/img/portfolio/3.jpg' %}" alt=""></a>
+                  <a href="#"><img src="{% static 'assets/img/portfolio/4.jpg' %}" alt=""></a>
+                  <a href="#"><img src="{% static 'assets/img/portfolio/5.jpg' %}" alt=""></a>
+                  <a href="#"><img src="{% static 'assets/img/portfolio/6.jpg' %}" alt=""></a>
                 </div>
               </div>
             </div>

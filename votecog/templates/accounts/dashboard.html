@@ -52,22 +52,22 @@
       </div>
 
       <nav class="nav-menu d-none d-lg-block">
-		  {% if user.is_authenticated %}
+		  {% if user.is_authenticated and user.is_admin %}
 			<ul>
-				<li class="active"><a href="#header">Home</a></li>
+				<!-- <li class="active"><a href="#header">Home</a></li> -->
 				<li><a href="#about">About</a></li>
 				<!-- <li><a href="#services">Services</a></li> -->
 				<li><a href="#team">Team</a></li>
 				<!-- <li><a href="#portfolio">Portfolio</a></li> -->
 				{% if user.is_voter == False and user.username != post.author.username %}
-					<li class="drop-down"><a href="">Blog</a>
+					<li class="drop-down"><a href="{% url 'blog:post_list' %}">Blog</a>
 						<ul>
                             <li><a href="{% url 'blog:post_new' %}">Add post</a></li>
 						</ul>
                     </li>
                 {% endif %}
                 {% if user.is_voter == False and user.username == post.author.username %}
-                    <li class="drop-down"><a href="">Blog</a>
+                    <li class="drop-down"><a href="{% url 'blog:post_list' %}">Blog</a>
                         <ul>
                             <li><a href="{% url 'blog:post_new' %}">Add post</a></li>
                             <li><a href="{% url 'blog:post_edit' pk=post.pk %}">Edit post</a></li>
@@ -78,7 +78,7 @@
 				{% if user.is_voter != False %}
 					<li><a href="#blog">Blog</a></li>
 				{% endif %}
-				<li><a href="#contact">Contact</a></li>
+				<li><a href="{% url 'accounts:dashboard' %}">Candidate Requests</a></li>
 				<!-- <li><a href="#login">Login</a></li> -->
 				<li class="drop-down"><a href="">{{user.username}}</a>
 					<ul>
@@ -91,7 +91,7 @@
 
 		  {% else %}
 			<ul>
-			<li class="active"><a href="#header">Home</a></li>
+			<!-- <li class="active"><a href="#header">Home</a></li> -->
 			<li><a href="#about">About</a></li>
 			<!-- <li><a href="#services">Services</a></li> -->
 			<li><a href="#team">Team</a></li>
@@ -172,10 +172,10 @@
               <div class="slider-content text-center">
               <div class="header-bottom">
                 <div class="layer2 wow zoomIn" data-wow-duration="1s" data-wow-delay=".4s">
-                <h1 class="title2">Blog Details </h1>
+                <h1 class="title2">Hey! </h1>
                 </div>
                 <div class="layer3 wow zoomInUp" data-wow-duration="2s" data-wow-delay="1s">
-                <h2 class="title3">profesional Blog Page</h2>
+                <h2 class="title3">Authorisation restricted</h2>
                 </div>
               </div>
               </div>

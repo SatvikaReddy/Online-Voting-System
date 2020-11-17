@@ -18,7 +18,6 @@ from django.utils import timezone
 def success(request):
     return render(request,'accounts/success.html',{})
 
-
 def cform(request):
     if request.method == "POST":
        form = MyModelForm(request.POST)

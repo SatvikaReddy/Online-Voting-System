@@ -59,11 +59,13 @@
           <li><a href="#team">Team</a></li>
           <!-- <li><a href="#portfolio">Portfolio</a></li> -->
           {% if user.is_voter == False %}
-            <li class="drop-down"><a href="">Blog</a>
+            <li class="drop-down"><a href="{% url 'blog:post_list' %}">Blog</a>
               <ul>
                 <li><a href="{% url 'blog:post_new' %}">Add post</a></li>
               </ul>
             </li>
+            {% else %}
+            <li><a href="{% url 'blog:post_list' %}">Blog</a>
           {% endif %}
           <li><a href="#contact">Contact</a></li>
           <!-- <li><a href="#login">Login</a></li> -->
@@ -137,6 +139,9 @@
           
           {% endif %}
           {% endfor %}
+          {% elif user.voted == "yes" %}
+          <h3 style="color: rgb(28, 28, 160); margin-top: 200px;">Already voted, can't vote again!</h3>
+
           {% else %}
           <h3 style="color: rgb(28, 28, 160)">No Candidates Contesting</h3>  
         </div>
