@@ -6,7 +6,12 @@ from nltk import FreqDist, classify, NaiveBayesClassifier
 
 import numpy as np
 import matplotlib.pyplot as plt
-
+import nltk
+nltk.download('twitter_samples')
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('wordnet')
+nltk.download('punkt')
 import re, string, random
 
 def remove_noise(tweet_tokens, stop_words = ()):
@@ -109,5 +114,5 @@ def plot(x,l):
     plt.bar(names[1],n,color='#FF6666')
     plt.ylabel("Analysis")
     plt.legend(labels=['Positive', 'Negative'])
-    plt.savefig('plot_'+str(l)+'.png')
+    plt.savefig('blog/static/assets/stat_'+str(l)+'.png')
 

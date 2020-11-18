@@ -28,7 +28,6 @@
 
   <!-- Template Main CSS File -->
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
-
   <!-- =======================================================
   * Template Name: eBusiness - v2.1.1
   * Template URL: https://bootstrapmade.com/ebusiness-bootstrap-corporate-template/
@@ -116,8 +115,10 @@
     <!-- Page content -->
     <br><br>
 
-     <p>This is the graph!</p>
-     <img src='#', alt="Wait for the Ananlysis">
+     <h3 style="text-align: center;">Statistic response of your campaign.</h3>
+      <p id="name" style="visibility: hidden;">{{user.username}}</p>
+     <img src="" alt="Wait for the Analysis" id="image" style="margin-left: 35%;">
+
 
     <!-- ======= Contact Section ======= -->
     <div id="contact" class="contact-area">
@@ -228,7 +229,7 @@
           <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="footer-content">
               <div class="footer-head">
-                <h4>information</h4>
+                <h4>Information</h4>
                 <p>
                   This is Votecog and you can reach us from the information given below!
                 </p>
@@ -271,7 +272,7 @@
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>
-
+  
   <!-- Vendor JS Files -->
   <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -288,6 +289,15 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
+  <script>
+    var extention = ".png";
+    var file = "/static/assets/stat_";
+    // plot_";
+    $(document).ready(function(){
+      var user = document.getElementById("name").innerHTML;
+      document.getElementById("image").src=file.concat(user,extention); 
+    });
+  </script>
 
 </body>
 
