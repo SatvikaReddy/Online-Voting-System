@@ -89,7 +89,7 @@ if __name__ == "sent":
 
     # print(classifier.show_most_informative_features(10))
 
-def plot(x):
+def plot(x,l):
     p=0
     n=0
     for i in x:
@@ -102,11 +102,12 @@ def plot(x):
     names = ['Positive', 'Negative']
     values = [p,n]
 
+    print(x,p,n)
     plt.figure()
     # plt.bar(names, values)
     plt.bar(names[0],p,color='#009999')
     plt.bar(names[1],n,color='#FF6666')
     plt.ylabel("Analysis")
     plt.legend(labels=['Positive', 'Negative'])
-    plt.savefig('my_plot.png')
+    plt.savefig('plot_'+str(l)+'.png')
 

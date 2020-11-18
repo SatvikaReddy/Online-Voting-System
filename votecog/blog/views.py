@@ -106,5 +106,6 @@ def stat(request):
         if i.post!= None:
             if i.post.author.username == user.username:
                 x.append(i.content)
-    sent.plot(x)
+    print(x)
+    sent.plot(x,user.username)
     return render(request,'blog/stat.html',{"comment": comment})
